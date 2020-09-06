@@ -5,26 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:src="@drawable/logo"
-        android:layout_marginTop="30dp"
-        />
+    tools:context=".Teacher.TeacherHome">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Welcome to Attendance        Tracking System"
-        android:textSize="40sp"
-        android:gravity="center"
-        android:textColor="@color/colorAccent"
-
+        android:text="Welcome to Teacher Home"
         />
-
-
 
 </LinearLayout>
