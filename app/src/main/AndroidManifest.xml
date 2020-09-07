@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Teacher.TeacherHome"></activity>
+        <activity android:name=".Admin.Subject"></activity>
+        <activity android:name=".Admin.Class" />
+        <activity android:name=".Admin.Teacher" />
+        <activity android:name=".Admin.Admin" />
+        <activity android:name=".Teacher.TeacherHome" />
         <activity android:name=".Admin.AdminHome" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">

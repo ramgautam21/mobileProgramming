@@ -32,22 +32,28 @@ public class LoginActivity extends AppCompatActivity {
         editText_password = findViewById(R.id.password_editText);
         radioGroup = findViewById(R.id.radioGroup);
 
-        final String  email = edittext_email.toString();
-        final String password = editText_password.toString();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (email == "ram" && password == "ram"){
-                    Intent intent1 = new Intent(LoginActivity.this,AdminHome.class);
+                String email = edittext_email.getText().toString();
+                String password = editText_password.getText().toString();
+
+                int radioId = radioGroup.getCheckedRadioButtonId();
+                radioButton = findViewById(radioId);
+
+                if (email.equals("ram") && password.equals("ram") && radioButton.getText().equals("Admin")) {
+                    Intent intent1 = new Intent(LoginActivity.this, AdminHome.class);
                     startActivity(intent1);
                 }
-                if (email == "hasan" && password == "hasan"){
+                else if (email.equals("ram") && password.equals("ram") && radioButton.getText().equals("Teacher")) {
                     Intent intent2 = new Intent(LoginActivity.this, TeacherHome.class);
                     startActivity(intent2);
                 }
-
+                else {
+                    Toast.makeText(LoginActivity.this,"Email or Password doesn't match.",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
