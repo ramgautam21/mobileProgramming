@@ -7,23 +7,40 @@
     android:orientation="vertical"
     tools:context=".Admin.Admin">
 
+    <TextView
+        android:id="@+id/textViewRam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add/Update/Delete Admin"
+        android:layout_gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        />
+
+    <EditText
+        android:id="@+id/editText_addAdmain_name"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Enter admin name"
+        android:inputType="textPersonName"
+        android:layout_marginTop="10dp"/>
+
     <EditText
         android:id="@+id/editText_addAdmain_email"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Enter email"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="10dp"/>
+        android:inputType="textEmailAddress"/>
 
     <EditText
-        android:id="@+id/editText_addAdmain_password"
+        android:id="@+id/editText_addAdmin_password"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:inputType="textPassword"
-        android:hint="Enter password"
-        android:layout_marginTop="10dp"/>
+        android:hint="Enter password"/>
 
     <Button
         android:id="@+id/btn_addAdmin"
@@ -31,9 +48,7 @@
         android:layout_height="wrap_content"
         android:text="ADD"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        />
+        android:layout_marginBottom="10dp" />
 
     <View
         android:id="@+id/divider4"
@@ -46,8 +61,7 @@
         android:layout_height="wrap_content"
         android:text="Admin List:"
         android:textSize="20dp"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="10dp" />
 
     <ListView
         android:id="@+id/listView_addAdmin"
