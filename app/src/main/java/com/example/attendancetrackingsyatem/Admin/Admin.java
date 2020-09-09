@@ -26,12 +26,12 @@ import java.util.List;
 
 public class Admin extends AppCompatActivity {
 
-    EditText editName , editEmail, editPassword ;
-    Button btn_addData;
-    ListView listViewOfAdmins;
+    private EditText editName , editEmail, editPassword ;
+    private Button btn_addData;
+    private ListView listViewOfAdmins;
     private String name, email, password;
     SQLiteDatabase database;
-    ArrayAdapter<Admin_list> favoriteAdaptor;
+    ArrayAdapter<Admin_list> adminAdaptor;
 
 
     @Override
@@ -51,11 +51,17 @@ public class Admin extends AppCompatActivity {
         btn_addData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.insertAdminData(editName.getText().toString(),editEmail.getText().toString(),editPassword.getText().toString(),database);
-                Toast.makeText(Admin.this,"Data Inserted",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Admin.this,Admin.class);
-                startActivity(intent);
 
+                if (editName.getText().toString().equals("") || editEmail.getText().toString().equals("") || editPassword.getText().toString().equals("")){
+                    Toast.makeText(Admin.this,"Please Fill all field!",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    db.insertAdminData(editName.getText().toString(), editEmail.getText().toString(), editPassword.getText().toString(), database);
+                    Toast.makeText(Admin.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Admin.this, Admin.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
@@ -63,9 +69,9 @@ public class Admin extends AppCompatActivity {
 
         DatabaseHelper db1 = new DatabaseHelper(this);
         final List<Admin_list> admins = db1.getAllAdmin();
-        favoriteAdaptor  = new ArrayAdapter<>(this,
+        adminAdaptor  = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,admins);
-        listViewOfAdmins.setAdapter(favoriteAdaptor);
+        listViewOfAdmins.setAdapter(adminAdaptor);
 
         listViewOfAdmins.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,6 +79,7 @@ public class Admin extends AppCompatActivity {
                 Intent intent =  new Intent(Admin.this,AboutAdmin.class);
                 intent.putExtra(AboutAdmin.EXTRA_ADMINID,admins.get((int)l).getID());
                 startActivity(intent);
+                finish();
             }
         });
 

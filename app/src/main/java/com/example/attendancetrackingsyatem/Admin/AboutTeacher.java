@@ -11,31 +11,30 @@ import android.widget.Toast;
 import com.example.attendancetrackingsyatem.Databse.DatabaseHelper;
 import com.example.attendancetrackingsyatem.R;
 
-public class AboutAdmin extends AppCompatActivity {
-    public static final String EXTRA_ADMINID ="adminId";
-    private int adminId = 0;
+public class AboutTeacher extends AppCompatActivity {
+    public static final String EXTRA_TEACHERID ="teacherId";
+    private int teacherId = 0;
     private EditText editText_name, editText_email, editText_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_admin);
+        setContentView(R.layout.activity_about_teacher);
 
         DatabaseHelper db = new DatabaseHelper(this);
 
-        adminId = (int) getIntent().getExtras().get(EXTRA_ADMINID);
+        teacherId = (int) getIntent().getExtras().get(EXTRA_TEACHERID);
 
-        Admin_list admin_list = db.getAdmin(adminId);
+        Teacher_list teacher_list = db.getTeacher(teacherId);
 
-        editText_name = findViewById(R.id.editText_updateAdminName);
-        editText_email = findViewById(R.id.editText_updateAdminEmail);
-        editText_password = findViewById(R.id.editText_updateAdminPassword);
+        editText_name = findViewById(R.id.editText_updateTeacherName);
+        editText_email = findViewById(R.id.editText_updateTeacherEmail);
+        editText_password = findViewById(R.id.editText_updateTeacherPassword);
 
-        editText_name.setText(admin_list.getName());
-        editText_email.setText(admin_list.getEmail());
-        editText_password.setText(admin_list.getPassword());
+        editText_name.setText(teacher_list.getName());
+        editText_email.setText(teacher_list.getEmail());
+        editText_password.setText(teacher_list.getPassword());
     }
-
 
     public void onClickUpdate(View view) {
         String name, email, password;
@@ -46,23 +45,22 @@ public class AboutAdmin extends AppCompatActivity {
         email = editText_email.getText().toString();
         password = editText_password.getText().toString();
 
-        Admin_list al = new Admin_list(adminId,name,email,password);
+        Teacher_list tl = new Teacher_list(teacherId,name,email,password);
 
-        db.updateAdmin(al);
+        db.updateTeacher(tl);
 
         Toast.makeText(this,"Updated Data Successfully!",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,Admin.class);
+        Intent intent = new Intent(this,Teacher.class);
         startActivity(intent);
         finish();
     }
 
     public void onClickDelete(View view) {
-
         DatabaseHelper db  = new DatabaseHelper(this);
-        db.deleteAdmin(adminId);
+        db.deleteTeacher(teacherId);
 
-        Toast.makeText(AboutAdmin.this,"Admin Deleted Successfully!",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AboutAdmin.this,Admin.class);
+        Toast.makeText(AboutTeacher.this,"Teacher Deleted Successfully!",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(AboutTeacher.this,Teacher.class);
         startActivity(intent);
         finish();
     }

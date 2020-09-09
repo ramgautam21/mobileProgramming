@@ -7,6 +7,16 @@
     android:orientation="vertical"
     tools:context=".Admin.Teacher">
 
+    <TextView
+        android:id="@+id/textViewRam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add/Update/Delete Teacher"
+        android:layout_gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        />
+
     <EditText
         android:id="@+id/editText_addTeacher_name"
         android:layout_width="220dp"
