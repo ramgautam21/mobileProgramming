@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().hide();
+
         myDb = new DatabaseHelper(this);
 
         new Handler().postDelayed(new Runnable() {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent home_intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(home_intent);
+                finish();
 
             }
         }, SPLASH_TIME_OUT);

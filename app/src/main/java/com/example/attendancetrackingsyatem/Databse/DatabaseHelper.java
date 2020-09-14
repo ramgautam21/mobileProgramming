@@ -8,9 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.attendancetrackingsyatem.Admin.Admin_list;
 import com.example.attendancetrackingsyatem.Admin.Class_list;
+import com.example.attendancetrackingsyatem.Admin.Student;
+import com.example.attendancetrackingsyatem.Admin.Student_list;
 import com.example.attendancetrackingsyatem.Admin.SubClass_list;
+import com.example.attendancetrackingsyatem.Admin.Subject;
 import com.example.attendancetrackingsyatem.Admin.Subject_list;
+import com.example.attendancetrackingsyatem.Admin.TakeAttendance;
 import com.example.attendancetrackingsyatem.Admin.Teacher_list;
+import com.example.attendancetrackingsyatem.Admin.ViewAttendance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +44,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String subject = "CREATE TABLE SUBJECT (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, SUB_CLASS TEXT)";
         db.execSQL(subject);
+
+        String student = "CREATE TABLE STUDENT (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, EMAIL TEXT, PASSWORD TEXT, ST_CLASS TEXT)";
+        db.execSQL(student);
+
+        String attendance = "CREATE TABLE ATTENDANCE (_id INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, CLASS TEXT, DATE TEXT, STATUS TEXT)";
+        db.execSQL(attendance);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-//        db.execSQL("DROP TABLE IF EXISTS ADMIN");
-//        db.execSQL("DROP TABLE IF EXISTS TEACHER");
-//        db.execSQL("DROP TABLE IF EXISTS CLASS");
-//        db.execSQL("DROP TABLE IF EXISTS SUBJECT");
-//        onCreate(db);
-
+        db.execSQL("DROP TABLE IF EXISTS ADMIN");
+        db.execSQL("DROP TABLE IF EXISTS TEACHER");
+        db.execSQL("DROP TABLE IF EXISTS CLASS");
+        db.execSQL("DROP TABLE IF EXISTS SUBJECT");
+        db.execSQL("DROP TABLE IF EXISTS STUDENT");
+        db.execSQL("DROP TABLE IF EXISTS ATTENDANCE");
+        onCreate(db);
     }
 
 //    ================================== ADMIN/ADD ADMIN =============================================================
-//===================================================================================================================
+
     public void insertAdminData(String name, String email, String password, SQLiteDatabase database){
 
         ContentValues values = new ContentValues();
@@ -298,7 +310,140 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete("SUBJECT","_id=?",new String[]{id+""});
         db.close();
     }
+
 //    ==============================================End of Subject/Admin===============================
 
+    public List<Student_list> getAllStudent() {
+
+        List<Student_list> student = new ArrayList<>();
+        Student_list st_l;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM STUDENT",null);
+        if (c.moveToFirst()){
+            do{
+                st_l = new Student_list();
+                st_l.setId(c.getInt(0));
+                st_l.setName(c.getString(1));
+                st_l.setEmail(c.getString(2));
+                st_l.setPassword(c.getString(3));
+                st_l.setSt_class(c.getString(4));
+                student.add(st_l);
+            }while (c.moveToNext());
+        }
+        db.close();
+        return student;
+    }
+
+    public void insertStudentData(String name, String email, String password, String spinner_data, SQLiteDatabase database) {
+        ContentValues values = new ContentValues();
+        values.put("NAME",name);
+        values.put("EMAIL",email);
+        values.put("PASSWORD",password);
+        values.put("ST_CLASS",spinner_data);
+        database.insert("STUDENT",null,values);
+        database.close();
+    }
+
+    public Student_list getStudent(int id) {
+        Student_list stl = new Student_list();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM STUDENT WHERE _id = "+ id,null);
+        if (c.moveToFirst()){
+            stl.setId(c.getInt(0));
+            stl.setName(c.getString(1));
+            stl.setEmail(c.getString(2));
+            stl.setPassword(c.getString(3));
+            stl.setSt_class(c.getString(4));
+        }
+        db.close();
+        return stl;
+
+    }
+
+    public void deleteStudent(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("STUDENT","_id=?",new String[]{id+""});
+        db.close();
+    }
+
+
+
+//    =========================================End of Student===================================
+
+    public List<Student_list> getAllClassStudentData(String data) {
+
+        List<Student_list> student = new ArrayList<>();
+        Student_list st_l;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM STUDENT WHERE ST_CLASS = ?"  ,new String[]{data});
+        if (c.moveToFirst()){
+            do{
+                st_l = new Student_list();
+                st_l.setId(c.getInt(0));
+                st_l.setName(c.getString(1));
+                st_l.setEmail(c.getString(2));
+                st_l.setPassword(c.getString(3));
+                st_l.setSt_class(c.getString(4));
+                student.add(st_l);
+            }while (c.moveToNext());
+        }
+        db.close();
+        return student;
+
+    }
+
+    public void setAttendance(String sname , String sclass, String date,SQLiteDatabase database) {
+
+        ContentValues values = new ContentValues();
+        values.put("NAME",sname);
+        values.put("CLASS",sclass);
+        values.put("DATE",date);
+        values.put("STATUS", "P");
+        database.insert("ATTENDANCE",null,values);
+        database.close();
+    }
+
+    public String[] getStudentByName(String student_name) {
+
+        String name [] = {"Ram Gautam","Samun Lama","Hasan Shrestha" , "Jitu Shrestha", "Navin Niraulla"};
+
+//        SQLiteDatabase db = getReadableDatabase();
+//        Cursor c = db.rawQuery("SELECT * FROM ATTENDANCE WHERE NAME = ?",new String[]{student_name});
+//        if (c.moveToFirst()){
+//            do{
+//
+//                name = (new String[]{c.getString(1)});
+//
+//            }while (c.moveToNext());
+//        }
+//        db.close();
+        return name;
+
+    }
+
+//    =====================================================================================================
+
+    public Boolean adminLogin(String email, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM ADMIN WHERE EMAIL = ? AND PASSWORD = ?"  ,new String[]{email , password});
+        if (c.getCount() > 0 ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public Boolean teacherLogin(String email, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM TEACHER WHERE EMAIL = ? AND PASSWORD = ?"  ,new String[]{email , password});
+        if (c.getCount() > 0){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 }
+

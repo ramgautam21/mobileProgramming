@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +8,45 @@
     tools:context=".Teacher.TeacherHome">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Teacher Home"
+        android:text="Teacher Home"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
         />
 
-</LinearLayout>
+    <Button
+        android:layout_above="@+id/btn_viewAttendance"
+        android:layout_centerInParent="true"
+        android:id="@+id/btn_makeAttendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TAKE ATTENDANCE"
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:layout_centerInParent="true"
+        android:id="@+id/btn_viewAttendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VIEW ATTENDANCE"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+         />
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/btn_viewAttendance"
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOGOUT"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center"
+        />
+
+</RelativeLayout>

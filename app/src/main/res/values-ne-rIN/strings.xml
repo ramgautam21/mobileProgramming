@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AttendanceTrackingSyatem</string>
+    <string name="title_activity_admin_home">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">NotificatDashboardions</string>
+    <string name="search">" खोज्नुहोस्"</string>
+    <string name="Print">" सेयर गर्नुहोस्"</string>
+    <string name="login">" लग - इन गर्नुहोस्"</string>
+</resources>

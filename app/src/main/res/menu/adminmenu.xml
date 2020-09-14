@@ -25,5 +25,10 @@
         android:title="Subject"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/item_student"
+        android:title="Student"
+        app:showAsAction="never"
+        />
 
 </menu>
