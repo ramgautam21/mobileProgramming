@@ -56,9 +56,9 @@ public class TakeAttendance extends AppCompatActivity {
 
     }
 
+
     private void SetStudentList(){
 
-//        Toast.makeText(this,class_list.getName(),Toast.LENGTH_SHORT).show();
 
         final DatabaseHelper db1 = new DatabaseHelper(this);
          final List<Student_list> student = db1.getAllClassStudentData(class_list.getName());

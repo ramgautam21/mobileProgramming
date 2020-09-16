@@ -30,7 +30,6 @@ public class AttendenceClass extends AppCompatActivity {
 
     private void SetCLassList(){
 
-
         DatabaseHelper db1 = new DatabaseHelper(this);
         final List<Class_list> classes = db1.getAllClass();
         studentAdaptor = new ArrayAdapter<>(this,
@@ -47,6 +46,6 @@ public class AttendenceClass extends AppCompatActivity {
             }
         });
 
-
     }
 }
+
